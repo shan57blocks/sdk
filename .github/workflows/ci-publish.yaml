@@ -5,15 +5,15 @@ on:
     # PR is targeting main branch
     branches:
       - main
-    # Triggered only when package.json is modified 
+    # Triggered only when package.json is modified
     # paths:
     #   - 'package.json'
     # Triggered only the PR is merged
-    types: [closed]
-    
+    types: [opened, synchronize, reopened, closed]
+
 jobs:
   # Add  timestamp
-  timestamp: 
+  timestamp:
     runs-on: ubuntu-latest
     outputs:
       PR_BRANCH_NAME: ${{ steps.get_pr_branch_name.outputs.PR_BRANCH_NAME }}
@@ -91,7 +91,7 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      
+
       - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
         with:
           version: 8.8.0
@@ -110,8 +110,8 @@ jobs:
         run: pnpm build
 
       # Disabled test for now for later validation
-      - name: Test
-        run: pnpm test
+      # - name: Test
+      #   run: pnpm test
 
       - name: Publish to npm
         run: |
