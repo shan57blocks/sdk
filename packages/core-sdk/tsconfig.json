@@ -7,5 +7,5 @@
     "types": ["mocha"],
     "lib": ["dom"]
   },
-  "include": ["src/**/*", "test/**/*"]
+  "include": ["src/**/*", "test/**/*", "wagmi.config.ts"]
 }
