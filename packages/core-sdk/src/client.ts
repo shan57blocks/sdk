@@ -9,8 +9,13 @@ import { TransactionReadOnlyClient } from "./resources/transactionReadOnly";
 import { HTTP_TIMEOUT } from "./constants/http";
 import { Client, ReadOnlyClient } from "./types/client";
 import { PlatformClient } from "./utils/platform";
-import { IPAccountClient } from "./resources/ipAccount";
-import { IPAccountReadOnlyClient } from "./resources/ipAccountReadOnly";
+import { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
+import { TaggingClient } from "./resources/tagging";
+import { TaggingReadOnlyClient } from "./resources/taggingReadOnly";
+import { IPAssetClient } from "./resources/ipAsset";
+import { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
+import { PermissionClient } from "./resources/permission";
+import { PermissionReadOnlyClient } from "./resources/permissionReadOnly";
 
 if (typeof process !== "undefined") {
   dotenv.config();
@@ -25,9 +30,12 @@ export class StoryClient {
   private readonly rpcClient: PublicClient;
   private readonly wallet?: WalletClient;
 
-  private _ipAccount: IPAccountClient | IPAccountReadOnlyClient | null = null;
+  private _ipAccount: IPAssetClient | IPAssetReadOnlyClient | null = null;
+  private _permission: PermissionClient | PermissionReadOnlyClient | null = null;
   private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
   private _platform: PlatformClient | null = null;
+  private _module: ModuleReadOnlyClient | null = null;
+  private _tagging: TaggingClient | TaggingReadOnlyClient | null = null;
 
   /**
    * @param config - the configuration for the SDK client
@@ -83,14 +91,24 @@ export class StoryClient {
     return new StoryClient(config, false) as Client;
   }
 
-  public get ipAccount(): IPAccountClient | IPAccountReadOnlyClient {
+  public get ipAsset(): IPAssetClient | IPAssetReadOnlyClient {
     if (this._ipAccount === null) {
       this._ipAccount = this.isReadOnly
-        ? new IPAccountReadOnlyClient(this.httpClient, this.rpcClient)
-        : new IPAccountClient(this.httpClient, this.rpcClient, this.wallet!);
+        ? new IPAssetReadOnlyClient(this.httpClient, this.rpcClient)
+        : new IPAssetClient(this.httpClient, this.rpcClient, this.wallet!);
     }
 
     return this._ipAccount;
+  }
+
+  public get permission(): PermissionClient | PermissionReadOnlyClient {
+    if (this._permission === null) {
+      this._permission = this.isReadOnly
+        ? new PermissionReadOnlyClient(this.httpClient, this.rpcClient)
+        : new PermissionClient(this.httpClient, this.rpcClient, this.wallet!);
+    }
+
+    return this._permission;
   }
 
   /**
@@ -110,6 +128,22 @@ export class StoryClient {
   }
 
   /**
+   * Getter for the tagging client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the TaggingReadOnlyClient or TaggingClient instance
+   */
+  public get tagging(): TaggingClient | TaggingReadOnlyClient {
+    if (this._tagging === null) {
+      this._tagging = this.isReadOnly
+        ? new TaggingReadOnlyClient(this.httpClient, this.rpcClient)
+        : new TaggingClient(this.httpClient, this.rpcClient, this.wallet!);
+    }
+
+    return this._tagging;
+  }
+
+  /**
    * Getter for the platform client. The client is lazily created when
    * this method is called.
    *
@@ -121,5 +155,19 @@ export class StoryClient {
     }
 
     return this._platform;
+  }
+
+  /**
+   * Getter for the module client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the Module instance
+   */
+  public get module(): ModuleReadOnlyClient {
+    if (this._module === null) {
+      this._module = new ModuleReadOnlyClient(this.httpClient, this.rpcClient);
+    }
+
+    return this._module;
   }
 }

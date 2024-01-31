@@ -5,10 +5,12 @@ export { TransactionClient } from "./resources/transaction";
 export { PlatformClient } from "./utils/platform";
 export { AddressZero, HashZero } from "./constants/common";
 
-export { IPAccountClient } from "./resources/ipAccount";
-export { IPAccountReadOnlyClient } from "./resources/ipAccountReadOnly";
-export { AccessControlClient } from "./resources/accessControl";
-export { AccessControlReadOnlyClient } from "./resources/accessControlReadOnly";
+export { TaggingReadOnlyClient } from "./resources/taggingReadOnly";
+export { ModuleReadOnlyClient } from "./resources/moduleReadOnly";
+export { IPAssetClient } from "./resources/ipAsset";
+export { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
+export { PermissionClient } from "./resources/permission";
+export { PermissionReadOnlyClient } from "./resources/permissionReadOnly";
 
 export type { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 export type { Client, ReadOnlyClient } from "./types/client";
@@ -21,3 +23,12 @@ export type {
   ListTransactionRequest,
   ListTransactionResponse,
 } from "./types/resources/transaction";
+
+export type { Tag, ListTagRequest, ListTagResponse } from "./types/resources/tagging";
+export type {
+  Module,
+  GetModuleRequest,
+  GetModuleResponse,
+  ListModuleRequest,
+  ListModuleResponse,
+} from "./types/resources/module";
