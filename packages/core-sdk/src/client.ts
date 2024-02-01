@@ -1,7 +1,16 @@
 import axios, { AxiosInstance } from "axios";
-import { createPublicClient, createWalletClient, http, PublicClient, WalletClient } from "viem";
+import {
+  createClient,
+  createPublicClient,
+  createWalletClient,
+  http,
+  PublicClient,
+  WalletClient,
+} from "viem";
 import { sepolia } from "viem/chains";
 import * as dotenv from "dotenv";
+import { createConfig, Config, mock } from "@wagmi/core";
+import { injected } from "wagmi/connectors";
 
 import { StoryConfig, StoryReadOnlyConfig } from "./types/config";
 import { TransactionClient } from "./resources/transaction";
@@ -16,6 +25,8 @@ import { IPAssetClient } from "./resources/ipAsset";
 import { IPAssetReadOnlyClient } from "./resources/ipAssetReadOnly";
 import { PermissionClient } from "./resources/permission";
 import { PermissionReadOnlyClient } from "./resources/permissionReadOnly";
+import { DisputeClient } from "./resources/dispute";
+import { DisputeReadOnlyClient } from "./resources/disputeReadOnly";
 
 if (typeof process !== "undefined") {
   dotenv.config();
@@ -29,13 +40,14 @@ export class StoryClient {
   private readonly isReadOnly: boolean = false;
   private readonly rpcClient: PublicClient;
   private readonly wallet?: WalletClient;
-
+  private readonly wagmiConfig?: Config;
   private _ipAccount: IPAssetClient | IPAssetReadOnlyClient | null = null;
   private _permission: PermissionClient | PermissionReadOnlyClient | null = null;
   private _transaction: TransactionClient | TransactionReadOnlyClient | null = null;
   private _platform: PlatformClient | null = null;
   private _module: ModuleReadOnlyClient | null = null;
   private _tagging: TaggingClient | TaggingReadOnlyClient | null = null;
+  private _dispute: DisputeClient | DisputeReadOnlyClient | null = null;
 
   /**
    * @param config - the configuration for the SDK client
@@ -61,6 +73,20 @@ export class StoryClient {
       this.wallet = createWalletClient({
         ...clientConfig,
         account: account,
+      });
+
+      this.wagmiConfig = createConfig({
+        chains: [sepolia],
+        // transports: {
+        //   [sepolia.id]: http(),
+        // },
+        ssr: true,
+        client() {
+          return createWalletClient({
+            ...clientConfig,
+            account: account,
+          });
+        },
       });
     }
 
@@ -141,6 +167,22 @@ export class StoryClient {
     }
 
     return this._tagging;
+  }
+
+  /**
+   * Getter for the dispute client. The client is lazily created when
+   * this method is called.
+   *
+   * @returns the TaggingReadOnlyClient or TaggingClient instance
+   */
+  public get dispute(): DisputeClient | DisputeReadOnlyClient {
+    if (this._dispute === null) {
+      this._dispute = this.isReadOnly
+        ? new DisputeReadOnlyClient(this.httpClient, this.rpcClient)
+        : new DisputeClient(this.httpClient, this.rpcClient, this.wallet!, this.wagmiConfig!);
+    }
+
+    return this._dispute;
   }
 
   /**

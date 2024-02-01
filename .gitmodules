@@ -2,3 +2,8 @@
 	path = packages/core-sdk/protocol-contracts
 	url = https://github.com/storyprotocol/protocol-core
 	branch = beta-rc1
+
+[submodule "packages/protocol-core"]
+	path = packages/protocol-core
+	url = https://github.com/storyprotocol/protocol-core
+	branch = beta-rc1

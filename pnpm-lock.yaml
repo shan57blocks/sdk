@@ -20,6 +20,9 @@ importers:
 
   packages/core-sdk:
     dependencies:
+      '@wagmi/core':
+        specifier: ^2.6.3
+        version: 2.6.3(react@18.2.0)(typescript@5.2.2)(viem@1.18.4)
       abitype:
         specifier: ^0.10.2
         version: 0.10.2(typescript@5.2.2)
@@ -96,6 +99,9 @@ importers:
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@20.8.2)(typescript@5.2.2)
+      tsx:
+        specifier: ^4.7.0
+        version: 4.7.0
       typechain:
         specifier: ^8.3.1
         version: 8.3.2(typescript@5.2.2)
@@ -5555,6 +5561,32 @@ packages:
       - zod
     dev: true
 
+  /@wagmi/core@2.6.3(react@18.2.0)(typescript@5.2.2)(viem@1.18.4):
+    resolution: {integrity: sha512-hHvJkXFqfj56nAD0SH5bAHYxBItUBDIn6yGUBguMu121v6R4NxhwciEeff56lSjnKhmXjaWdJCEJ9C1YwkmDVw==}
+    peerDependencies:
+      '@tanstack/query-core': '>=5.0.0'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@tanstack/query-core':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      eventemitter3: 5.0.1
+      mipd: 0.0.5(typescript@5.2.2)
+      typescript: 5.2.2
+      viem: 1.18.4(typescript@5.2.2)
+      zustand: 4.4.1(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
+      - react
+      - utf-8-validate
+      - zod
+    dev: false
+
   /@walletconnect/core@2.11.0:
     resolution: {integrity: sha512-2Tjp5BCevI7dbmqo/OrCjX4tqgMqwJNQLlQAlphqPfvwlF9+tIu6pGcVbSN3U9zyXzWIZCeleqEaWUeSeET4Ew==}
     dependencies:
@@ -6121,6 +6153,7 @@ packages:
   /amdefine@1.0.1:
     resolution: {integrity: sha512-S2Hw0TtNkMJhIabBwIojKL9YHO5T0n5eNqWJ7Lrlel/zDbftQpxpapi8tZs3X1HWa+u+QeydGmzzNU0m09+Rcg==}
     engines: {node: '>=0.4.2'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -8698,7 +8731,6 @@ packages:
 
   /eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
-    dev: true
 
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
@@ -9220,6 +9252,12 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
+
+  /get-tsconfig@4.7.2:
+    resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==}
+    dependencies:
+      resolve-pkg-maps: 1.0.0
+    dev: true
 
   /getpass@0.1.7:
     resolution: {integrity: sha512-0fzj9JxOLfJ+XGLhR8ze3unN0KZCgZwiSSDz168VERjK8Wl8kVSdcu2kspd4s4wtAa1y/qrVRiAA0WclVsu0ng==}
@@ -10471,7 +10509,6 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-    dev: true
 
   /js-yaml@3.13.1:
     resolution: {integrity: sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==}
@@ -11059,7 +11096,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: true
 
   /loupe@2.3.6:
     resolution: {integrity: sha512-RaPMZKiMy8/JruncMU5Bt6na1eftNoo++R4Y+N2FrxkDVTrGvcyzFTsaGif4QTeKESheMGegbhw6iUAq+5A8zA==}
@@ -11594,7 +11630,6 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
-    dev: true
 
   /mixme@0.5.9:
     resolution: {integrity: sha512-VC5fg6ySUscaWUpI4gxCBTQMH2RdUpNrk+MsbpCYtIvf9SBJdiUey4qE7BXviJsJR4nDQxCZ+3yaYNW3guz/Pw==}
@@ -11855,6 +11890,7 @@ packages:
   /node-gyp-build@4.3.0:
     resolution: {integrity: sha512-iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q==}
     hasBin: true
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -12944,7 +12980,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /read-pkg-up@1.0.1:
     resolution: {integrity: sha512-WD9MTlNtI55IwYUS27iHh9tK3YoIVhxis8yKhLpTqWtml739uXc9NWTpxoHkfZf3+DkCCsXox94/VWZniuZm6A==}
@@ -13225,6 +13260,10 @@ packages:
   /resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
+    dev: true
+
+  /resolve-pkg-maps@1.0.0:
+    resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
     dev: true
 
   /resolve@1.1.7:
@@ -14503,6 +14542,17 @@ packages:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
     dev: true
 
+  /tsx@4.7.0:
+    resolution: {integrity: sha512-I+t79RYPlEYlHn9a+KzwrvEwhJg35h/1zHsLC2JXvhC2mdynMv6Zxzvhv5EMV6VF5qJlLlkSnMVvdZV3PSIGcg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.19.12
+      get-tsconfig: 4.7.2
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
   /tty-table@4.2.2:
     resolution: {integrity: sha512-2gvCArMZLxgvpZ2NvQKdnYWIFLe7I/z5JClMuhrDXunmKgSZcQKcZRjN9XjAFiToMz2pUo1dEIXyrm0AwgV5Tw==}
     engines: {node: '>=8.0.0'}
@@ -14927,7 +14977,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: true
 
   /utf-8-validate@5.0.7:
     resolution: {integrity: sha512-vLt1O5Pp+flcArHGIyKEQq883nBt8nN8tVBcoL0qUXj2XT1n7p70yGIq2VK98I5FdZ1YHc0wk/koOnHjnXWk1Q==}
@@ -15613,4 +15662,3 @@ packages:
     dependencies:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: true
