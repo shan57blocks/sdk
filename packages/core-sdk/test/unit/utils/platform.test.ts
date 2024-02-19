@@ -4,7 +4,6 @@ import chai from "chai";
 import { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { createMock, createFileReaderMock } from "../testUtils";
-import { PublicClient, WalletClient } from "viem";
 import { AxiosInstance } from "axios";
 
 chai.use(chaiAsPromised);
@@ -12,15 +11,11 @@ chai.use(chaiAsPromised);
 describe("Test PlatformClient", function () {
   let platformClient: PlatformClient;
   let axiosMock: AxiosInstance;
-  let rpcMock: PublicClient;
-  let walletMock: WalletClient;
 
   let mockFile = new File([""], "test.png", { type: "image/png" });
   let mockBuffer = Buffer.from("test");
   this.beforeEach(function () {
     axiosMock = createMock<AxiosInstance>();
-    rpcMock = createMock<PublicClient>();
-    walletMock = createMock<WalletClient>();
     platformClient = new PlatformClient(axiosMock);
   });
 

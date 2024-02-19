@@ -7,7 +7,6 @@ import {
   CancelDisputeRequest,
   RaiseDisputeRequest,
   ResolveDisputeRequest,
-  SetDisputeJudgementRequest,
 } from "../../src/types/resources/dispute";
 
 describe.skip("Dispute Functions", () => {

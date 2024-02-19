@@ -78,6 +78,7 @@ export class PolicyClient {
         ],
         account: this.wallet.account,
       });
+      //@ts-expect-error
       const txHash = await this.wallet.writeContract(call);
 
       if (request.txOptions?.waitForTransaction) {
@@ -122,6 +123,7 @@ export class PolicyClient {
         ],
         account: this.wallet.account,
       });
+      //@ts-expect-error
       const txHash = await this.wallet.writeContract(call);
       // TODO: the emit event doesn't return anything
       if (request.txOptions?.waitForTransaction) {

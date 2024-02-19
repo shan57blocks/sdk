@@ -6,7 +6,6 @@ import { IPAccountABI, LicenseRegistryConfig, LicensingModuleConfig } from "./te
 
 describe("License Functions", () => {
   let client: StoryClient;
-  let senderAddress: string;
 
   before(function () {
     const config: StoryConfig = {
@@ -15,7 +14,6 @@ describe("License Functions", () => {
       account: privateKeyToAccount((process.env.WALLET_PRIVATE_KEY || "0x") as Hex),
     };
 
-    senderAddress = config.account.address;
     client = StoryClient.newClient(config);
     client.license.ipAccountABI = IPAccountABI;
     client.license.licenseRegistryConfig = LicenseRegistryConfig;

@@ -15,22 +15,11 @@ describe("Test StoryClient", function () {
 
     it("should throw error when wallet account is null", function () {
       expect(() => {
-        const client = StoryClient.newClient({
+        StoryClient.newClient({
           transport: http(process.env.RPC_PROVIDER_URL),
           account: null as any as Account,
         });
       }).to.throw("account is null");
-    });
-  });
-
-  describe("Test getters", function () {
-    let client: StoryClient;
-
-    beforeEach(function () {
-      client = StoryClient.newClient({
-        transport: http(process.env.RPC_PROVIDER_URL),
-        account: privateKeyToAccount(generatePrivateKey()),
-      });
     });
   });
 });

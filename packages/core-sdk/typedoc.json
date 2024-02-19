@@ -1,0 +1,15 @@
+{
+  // Comments are supported, like tsconfig.json
+  "exclude": [
+    "node_modules/viem@*/**/*",
+    "node_modules/.pnpm/viem@*/**/*",
+    "../../node_modules/viem/**/*",
+    "../../node_modules/viem@*/**/*",
+    "../../node_modules/.pnpm/viem@*/**/*",
+    "test/**/*"
+  ],
+  "excludeNotDocumented": true,
+  "excludePrivate": true,
+  "entryPoints": ["src/client.ts"],
+  "out": "docs"
+}
