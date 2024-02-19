@@ -7,8 +7,8 @@ import {
   encodeAbiParameters,
   parseAbiParameters,
   Chain,
+  InferEventName,
 } from "viem";
-import { InferEventName } from "viem/types/contract";
 import { mainnet, polygonMumbai, sepolia } from "viem/chains";
 
 import { Hex, TypedData } from "../types/common";
@@ -25,7 +25,7 @@ export function parseToBigInt(num: string | number): bigint {
 
 export async function waitTxAndFilterLog<
   const TAbi extends Abi | readonly unknown[],
-  TEventName extends string | undefined = undefined,
+  ContractEventName extends string | undefined = undefined,
   TTopics extends Hex[] = Hex[],
   TData extends Hex | undefined = undefined,
   TStrict extends boolean = true,
@@ -34,12 +34,12 @@ export async function waitTxAndFilterLog<
   txHash: Hash,
   params: {
     abi: TAbi;
-    eventName: InferEventName<TAbi, TEventName>;
+    eventName: InferEventName<TAbi, ContractEventName>;
     confirmations?: number;
     pollingInterval?: number;
     timeout?: number;
   },
-): Promise<DecodeEventLogReturnType<TAbi, TEventName, TTopics, TData, TStrict>> {
+): Promise<DecodeEventLogReturnType<TAbi, ContractEventName, TTopics, TData, TStrict>> {
   const txReceipt = await client.waitForTransactionReceipt({
     hash: txHash,
     confirmations: params.confirmations,
@@ -49,7 +49,7 @@ export async function waitTxAndFilterLog<
 
   for (const log of txReceipt.logs) {
     try {
-      return decodeEventLog<TAbi, TEventName, TTopics, TData, TStrict>({
+      return decodeEventLog<TAbi, ContractEventName, TTopics, TData, TStrict>({
         abi: params.abi,
         eventName: params.eventName,
         data: log.data as TData,
