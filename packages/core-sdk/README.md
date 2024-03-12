@@ -11,19 +11,19 @@ Suppose you already have a node project or created a new node project. First, yo
 Use `npm`:
 
 ```
-npm install --save @story-protocol/core-sdk viem@1.21.4
+npm install --save @story-protocol/core-sdk viem@2.7
 ```
 
 Use `pnpm`:
 
 ```
-pnpm install @story-protocol/core-sdk viem@1.21.4
+pnpm install @story-protocol/core-sdk viem@2.7
 ```
 
 Use `yarn`:
 
 ```
-yarn add @story-protocol/core-sdk viem@1.21.4
+yarn add @story-protocol/core-sdk viem@2.7
 ```
 
 Besides the Story Protocol SDK package `@story-protocol/core-sdk`, we also require the package `viem` (https://www.npmjs.com/package/viem) to access the DeFi wallet accounts.
@@ -41,7 +41,7 @@ The SDK supports using `viem` for initiating SDK client. Create a typescript fil
 ```typescript index.ts
 import { privateKeyToAccount } from "viem/accounts";
 
-const WALLET_PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY || "0x";
+const WALLET_PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY!;
 const account = privateKeyToAccount(WALLET_PRIVATE_KEY as `0x${string}`);
 ```
 
